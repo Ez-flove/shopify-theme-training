@@ -1,0 +1,23 @@
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.shopify
+node_modules
+*.zip
+# Local only
+.env
+.env.*
+.claude/settings.local.json
+
+# Superpowers plugin
+.worktrees/
+.superpowers/
+
+# Downloaded screenshots and other local-only files
+.local/

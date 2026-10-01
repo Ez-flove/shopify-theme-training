@@ -1,0 +1,142 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit",
+      "Write",
+      "Read",
+      "Glob",
+      "Grep",
+      "Bash(yarn *)",
+      "Bash(npm run *)",
+      "Bash(npx *)",
+      "Bash(pnpm *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(wc *)",
+      "Bash(sort *)",
+      "Bash(uniq *)",
+      "Bash(find *)",
+      "Bash(grep *)",
+      "Bash(sed -n *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(mkdir *)",
+      "Bash(touch *)",
+      "Bash(diff *)",
+      "Bash(jq *)",
+      "Bash(python3 *)",
+      "Bash(tools/run *)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git show*)",
+      "Bash(git blame*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git branch*)",
+      "Bash(git checkout*)",
+      "Bash(git fetch*)",
+      "Bash(gh pr view*)",
+      "Bash(gh pr diff*)",
+      "Bash(node --test*)",
+      "Bash(node --check*)",
+      "Bash(shopify version*)",
+      "Bash(shopify theme check*)",
+      "Bash(shopify theme info*)",
+      "Bash(shopify theme list*)",
+      "Bash(shopify theme dev*)",
+      "Bash(shopify theme metafields pull*)",
+      "Bash(git init*)"
+    ],
+    "deny": [
+      "Bash(sudo *)",
+      "Bash(su *)",
+      "Bash(ss:*)",
+      "Bash(netstat:*)",
+      "Bash(git push --force*)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean -f*)",
+      "Bash(rm -rf *)",
+      "Bash(printenv*)",
+      "Bash(env)",
+      "Bash(set)",
+      "Bash(curl * | bash)",
+      "Bash(curl * | sh)",
+      "Bash(shopify theme publish*)",
+      "Bash(shopify theme delete*)",
+      "Bash(shopify theme push*--allow-live*)",
+      "Bash(shopify theme push*--live*)",
+      "Bash(shopify theme push* -l*)"
+    ],
+    "ask": [
+      "Bash(shopify theme push*)",
+      "Bash(shopify theme pull*)",
+      "Bash(shopify theme share*)",
+      "Bash(shopify theme duplicate*)",
+      "Bash(shopify theme rename*)",
+      "Bash(shopify theme package*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${CLAUDE_PROJECT_DIR}/tools/hooks/guard-paths.py",
+            "statusMessage": "Checking write path..."
+          }
+        ]
+      },
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${CLAUDE_PROJECT_DIR}/tools/hooks/guard-read.py",
+            "statusMessage": "Checking read path..."
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${CLAUDE_PROJECT_DIR}/tools/hooks/guard-bash.py",
+            "statusMessage": "Checking command safety..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${CLAUDE_PROJECT_DIR}/tools/hooks/rule-touch.py 2>/dev/null || true",
+            "statusMessage": "Checking shared rules..."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${CLAUDE_PROJECT_DIR}/tools/hooks/plan-gate.py 2>/dev/null || true",
+            "statusMessage": "Checking plan gate..."
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true
+  }
+}

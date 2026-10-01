@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Description: dispatcher — tools/run <tool> [args]
+set -euo pipefail
+
+TOOLS_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_ROOT="$(cd "$TOOLS_DIR/.." && pwd)"
+
+usage() {
+  echo "Usage: tools/run <tool> [args...]"
+  echo ""
+  echo "Available tools:"
+  for d in "$TOOLS_DIR"/*/; do
+    [ -d "$d" ] || continue
+    name=$(basename "$d")
+    entry=""
+    [ -f "$d/main.sh" ] && entry="$d/main.sh"
+    [ -f "$d/main.py" ] && entry="$d/main.py"
+    [ -z "$entry" ] && continue
+    desc=$(head -5 "$entry" | grep -m1 '# Description:' | sed 's/.*# Description:[[:space:]]*//' || true)
+    printf "  %-16s %s\n" "$name" "$desc"
+  done
+  echo ""
+  echo "Project config: flow.config.json"
+}
+
+if [ $# -eq 0 ] || [ "$1" = "--list" ] || [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+  usage; exit 0
+fi
+
+TOOL="$1"; shift
+TOOL_DIR="$TOOLS_DIR/$TOOL"
+
+if [ ! -d "$TOOL_DIR" ]; then
+  echo "Error: unknown tool '$TOOL'" >&2; echo "" >&2; usage >&2; exit 1
+fi
+
+export PROJECT_ROOT TOOL_DIR
+
+if   [ -f "$TOOL_DIR/main.sh" ]; then exec bash "$TOOL_DIR/main.sh" "$@"
+elif [ -f "$TOOL_DIR/main.py" ]; then exec python3 "$TOOL_DIR/main.py" "$@"
+else echo "Error: no main.sh or main.py in tools/$TOOL/" >&2; exit 1
+fi

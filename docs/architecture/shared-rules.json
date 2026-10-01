@@ -1,0 +1,24 @@
+{
+  "_why": "One business rule written by hand in more than one file. Declare it once here; tools/run shared-rules then does two passes — compare (the copies disagree) and discover (a file uses the rule and is not listed).",
+
+  "_example": {
+    "id": "dropdown-threshold",
+    "statement": "A question renders as a dropdown only when it has MORE than DROPDOWN_MIN_OPTIONS options — strictly greater, not >=. The only screen that obeys it is the participant's, which is why a second copy with >= survived for months.",
+    "files": [
+      "frontend/src/components/question/render.tsx",
+      "admin/src/components/preview/question.tsx"
+    ],
+    "mustMatch": ["totalOptions\\s*>\\s*DROPDOWN_MIN_OPTIONS"],
+    "discover": {
+      "symbols": ["DROPDOWN_MIN_OPTIONS"],
+      "kind": "mention",
+      "allowedElsewhere": ["shared/constants/question.ts"]
+    },
+    "_notes": [
+      "mustMatch names a SHAPE, not a value. A bare \"'MULTIPLE'\" is satisfied by an unrelated array 300 lines away, so deleting the rule from the function it guards would change nothing — the tool refuses such patterns.",
+      "kind 'mention' asks which file NAMES the symbol — right for a threshold or a tab order with few legitimate mentions. kind 'declaration' asks which file DECLARES it — right for an enum that many honest consumers import, where 'mention' would return twenty files and tempt you into nineteen useless exceptions."
+    ]
+  },
+
+  "rules": []
+}

@@ -1,0 +1,15 @@
+{
+  "count": 1,
+  "guards": [
+    {
+      "id": "section-blocks",
+      "app": "tests",
+      "path": "tests/guards/section-blocks.test.js",
+      "watches": "a block type declared in a section's {% schema %} that the section never renders, a section with blocks that never outputs {{ block.shopify_attributes }}, and an \"@app\" block declared but never rendered. All three pass Theme Check and look fine in review; they show up only when a merchant adds the block in the theme editor and nothing appears, or it cannot be selected.",
+      "extend": "a new local block type in a section that branches on block.type needs its own `when 'type'` inside `case block.type` (or a `block.type == 'type'` test). If the case's `else` branch renders it on purpose, add it to ELSE_BRANCH_ALLOWED with the reason.",
+      "exclusionMaps": [
+        "ELSE_BRANCH_ALLOWED"
+      ]
+    }
+  ]
+}

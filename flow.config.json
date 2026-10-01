@@ -1,0 +1,82 @@
+{
+  "_why": "Everything project-specific lives here so the tools and rules stay portable. Edit this, not the tools.",
+  "projectName": "shopify-theme-training",
+  "_sourceGlobs": "Theme folders only. Without these the Stop hook and shared-rules discover see no .liquid file and stay green for the wrong reason. Patterns use fnmatch, where * also crosses '/', so templates/* covers templates/customers/*.json.",
+  "sourceGlobs": [
+    "layout/*.liquid",
+    "sections/*",
+    "blocks/*",
+    "snippets/*.liquid",
+    "templates/*",
+    "config/*.json",
+    "locales/*.json",
+    "assets/*.js",
+    "assets/*.css"
+  ],
+  "ignoreDirs": [
+    "node_modules",
+    ".git",
+    ".shopify",
+    "__pycache__",
+    ".worktrees",
+    ".superpowers",
+    ".local"
+  ],
+  "ignoreFileGlobs": [
+    "*.min.js",
+    "*.min.css"
+  ],
+  "_apps": "Top-level dirs that are separate apps. Empty for a single-app repo. Used to label guards and to spot the same rule diverging between apps.",
+  "apps": [],
+  "_guards": "guardGlobs = where guards live. guardRequiredGlobs = where a missing @guard docblock is an error rather than an opt-out. Guards run on Node's built-in test runner, so the theme needs no package.json.",
+  "guardGlobs": [
+    "tests/guards/*.test.js"
+  ],
+  "guardRequiredGlobs": [
+    "tests/guards/*.test.js"
+  ],
+  "guardsOutput": "docs/architecture/change-guards.json",
+  "sharedRulesFile": "docs/architecture/shared-rules.json",
+  "_commands": "How this theme is checked. There is no install step (Dawn has no dependencies; Shopify CLI is global) and no build step (Shopify serves Liquid as-is), so build is empty on purpose — do not report it as passed. typecheck is tools/run js-syntax: node --check over assets/*.js, the only code Theme Check does not parse. dev is how a change is actually seen: it needs a development store and runs until stopped.",
+  "commands": {
+    "test": "node --test 'tests/guards/*.test.js'",
+    "testFile": "node --test",
+    "lint": "shopify theme check --fail-level error",
+    "build": "",
+    "typecheck": "tools/run js-syntax",
+    "dev": "shopify theme dev --store ngocmx-training"
+  },
+  "_sources": "Where correctness comes from, most authoritative first. The review commands cite these by name.",
+  "sourcesOfTruth": [
+    {
+      "name": "brief",
+      "path": "docs/exercises/<EX-ID>/brief.md",
+      "note": "the trainer's exercise brief, pasted verbatim and never edited. Every spec rule quotes it. Where it is silent or ambiguous, that is an OPEN QUESTION for the trainer, not a choice to make quietly."
+    },
+    {
+      "name": "design",
+      "path": "docs/exercises/<EX-ID>/design/",
+      "note": "screenshots or a Figma link. Decides layout, states, copy and breakpoints. Does not decide which settings the merchant gets in the theme editor unless the brief says so."
+    },
+    {
+      "name": "shopify-dev",
+      "path": "https://shopify.dev/docs/storefronts/themes",
+      "note": "decides what a Liquid object, filter, tag, schema attribute or Ajax API endpoint actually does. Open the reference page; never rely on memory of the Liquid API."
+    },
+    {
+      "name": "dawn",
+      "path": "sections/ snippets/ assets/",
+      "note": "convention, not requirement: how Dawn already does the same job (CSS classes, custom elements, asset loading, section rendering). Follow it unless the brief says otherwise."
+    },
+    {
+      "name": "spec",
+      "path": "docs/specs/features/",
+      "note": "one spec per exercise, approved before code. The trainer's answers recorded in its decision table post-date the brief, so on exactly those points they win over it."
+    },
+    {
+      "name": "plan",
+      "path": "docs/plans/",
+      "note": "one plan per change, written before the edit"
+    }
+  ]
+}
