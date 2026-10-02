@@ -39,7 +39,7 @@
   "sharedRulesFile": "docs/architecture/shared-rules.json",
   "_commands": "How this theme is checked. There is no install step (Dawn has no dependencies; Shopify CLI is global) and no build step (Shopify serves Liquid as-is), so build is empty on purpose — do not report it as passed. typecheck is tools/run js-syntax: node --check over assets/*.js, the only code Theme Check does not parse. dev is how a change is actually seen: it needs a development store and runs until stopped.",
   "commands": {
-    "test": "node --test 'tests/guards/*.test.js'",
+    "test": "node --test 'tests/guards/*.test.js' 'tests/unit/*.test.js'",
     "testFile": "node --test",
     "lint": "shopify theme check --fail-level error",
     "build": "",

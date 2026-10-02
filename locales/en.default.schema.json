@@ -2761,6 +2761,84 @@
         "name": "Page"
       }
     },
+    "product-recommendations-tabs": {
+      "name": "Product recommendations",
+      "settings": {
+        "heading": {
+          "label": "Heading"
+        },
+        "description": {
+          "label": "Description"
+        },
+        "link_label": {
+          "label": "Link label",
+          "info": "Shown on the right of the buttons. Leave blank to hide the link."
+        },
+        "link_url": {
+          "label": "Link"
+        },
+        "display_style": {
+          "label": "Layout",
+          "options__1": {
+            "label": "Carousel"
+          },
+          "options__2": {
+            "label": "Grid"
+          }
+        },
+        "products_to_show": {
+          "label": "Maximum products",
+          "info": "Applies to each button. Shopify returns at most 10 related products."
+        },
+        "columns_desktop": {
+          "label": "Products per row on desktop",
+          "info": "With Carousel, how many products are visible at once."
+        },
+        "columns_mobile": {
+          "label": "Products per row on mobile"
+        },
+        "header__card": {
+          "content": "Product card"
+        },
+        "header__section": {
+          "content": "Section"
+        }
+      },
+      "blocks": {
+        "related": {
+          "name": "Related products",
+          "settings": {
+            "label": {
+              "label": "Button text",
+              "info": "Leave blank to show \"Related products\" in the shopper's language."
+            },
+            "empty_message": {
+              "label": "Message when there are no products",
+              "info": "Leave blank to use the theme's message in the shopper's language."
+            }
+          }
+        },
+        "recently_viewed": {
+          "name": "Recently viewed",
+          "settings": {
+            "paragraph": {
+              "content": "Saved in each shopper's browser. The product being viewed is left out."
+            },
+            "label": {
+              "label": "Button text",
+              "info": "Leave blank to show \"Recently viewed\" in the shopper's language."
+            },
+            "empty_message": {
+              "label": "Message when there are no products",
+              "info": "Leave blank to use the theme's message in the shopper's language."
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Product recommendations"
+      }
+    },
     "quick-order-list": {
       "name": "Quick order list",
       "settings": {
