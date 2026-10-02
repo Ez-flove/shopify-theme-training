@@ -1,5 +1,5 @@
 {
-  "count": 1,
+  "count": 2,
   "guards": [
     {
       "id": "section-blocks",
@@ -9,6 +9,16 @@
       "extend": "a new local block type in a section that branches on block.type needs its own `when 'type'` inside `case block.type` (or a `block.type == 'type'` test). If the case's `else` branch renders it on purpose, add it to ELSE_BRANCH_ALLOWED with the reason.",
       "exclusionMaps": [
         "ELSE_BRANCH_ALLOWED"
+      ]
+    },
+    {
+      "id": "social-links",
+      "app": "tests",
+      "path": "tests/guards/social-links.test.js",
+      "watches": "a social link setting declared in config/settings_schema.json (Theme settings → Social media) but missing from one of the theme files that list every social network — the icon rows in the footer, announcement bar and menu drawer, the password page, the \"is any social link set\" checks and the Organization JSON-LD. Theme Check passes; the icon just never shows on that one surface, or a footer whose only social link is the new one renders no social row at all.",
+      "extend": "a new social_<name>_link in the Social media group must be named in every file this guard lists, the same number of times as the other networks in that file. A file that reads a single network for its own reason (meta-tags.liquid reads only X/Twitter) is not a list and is not checked.",
+      "exclusionMaps": [
+        "KNOWN_LISTS"
       ]
     }
   ]
