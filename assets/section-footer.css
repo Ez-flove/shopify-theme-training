@@ -11,7 +11,7 @@
   display: block;
 }
 
-@media screen and (max-width: 749px) {
+@media screen and (max-width: 989px) {
   .footer .grid {
     display: block;
   }
@@ -33,7 +33,7 @@
   }
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 990px) {
   .footer__content-top .grid {
     row-gap: 6rem;
     margin-bottom: 0;
@@ -41,12 +41,7 @@
 }
 
 .footer__content-bottom {
-  border-top: solid 0.1rem rgba(var(--color-foreground), 0.08);
   padding-top: 3rem;
-}
-
-.footer__content-bottom:only-child {
-  border-top: 0;
 }
 
 .footer__content-bottom-wrapper {
@@ -54,7 +49,7 @@
   width: 100%;
 }
 
-@media screen and (max-width: 749px) {
+@media screen and (max-width: 989px) {
   .footer__content-bottom {
     flex-wrap: wrap;
     padding-top: 0;
@@ -76,16 +71,6 @@
   }
 }
 
-.footer__localization:empty + .footer__column--info {
-  align-items: center;
-}
-
-@media screen and (max-width: 749px) {
-  .footer__localization:empty + .footer__column {
-    padding-top: 1.5rem;
-  }
-}
-
 .footer__column {
   width: 100%;
   align-items: flex-end;
@@ -100,7 +85,7 @@
   padding-right: 2rem;
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 990px) {
   .footer__column--info {
     padding-left: 0;
     padding-right: 0;
@@ -114,7 +99,7 @@
   margin: 0 auto;
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 990px) {
   .footer-block {
     display: block;
     margin-top: 0;
@@ -136,13 +121,13 @@
   margin-top: 0;
 }
 
-@media screen and (max-width: 749px) {
+@media screen and (max-width: 989px) {
   .footer-block.footer-block--menu:only-child {
     text-align: left;
   }
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 990px) {
   .footer-block--newsletter {
     flex-wrap: nowrap;
     justify-content: center;
@@ -184,7 +169,7 @@
   max-width: 36rem;
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 990px) {
   /* Pushes other components to the right of the flexbox */
   .footer-block__newsletter:not(:only-child) {
     text-align: left;
@@ -220,7 +205,7 @@
   }
 }
 
-@media screen and (max-width: 749px) {
+@media screen and (max-width: 989px) {
   /*
     On a small screen we want all the items to be centered
     because they will be stacked.
@@ -245,7 +230,7 @@
   }
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 990px) {
   .footer-block__newsletter + .footer__list-social {
     margin-top: 0;
   }
@@ -264,30 +249,17 @@
   display: none;
 }
 
-.footer__localization h2 {
-  margin: 1rem 1rem 0.5rem;
-  color: rgba(var(--color-foreground), 0.75);
-}
-
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 990px) {
   .footer__localization {
     padding: 0.4rem 0;
     justify-content: flex-start;
   }
-
-  .footer__localization h2 {
-    margin: 1rem 0 0;
-  }
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 990px) {
   .footer__payment {
     margin-top: 1.5rem;
   }
-}
-
-.footer__content-bottom-wrapper--center {
-  justify-content: center;
 }
 
 .footer__copyright {
@@ -295,9 +267,9 @@
   margin-top: 1.5rem;
 }
 
-@media screen and (min-width: 750px) {
-  .footer__content-bottom-wrapper:not(.footer__content-bottom-wrapper--center) .footer__copyright {
-    text-align: right;
+@media screen and (min-width: 990px) {
+  .footer__copyright {
+    text-align: left;
   }
 }
 
@@ -316,7 +288,7 @@
   margin-bottom: 4rem;
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 990px) {
   .footer-block__details-content {
     margin-bottom: 0;
   }
@@ -335,9 +307,14 @@
   }
 }
 
-.footer-block__details-content .list-menu__item--link,
 .copyright__content a {
   color: rgba(var(--color-foreground), 0.75);
+}
+
+.footer-block__details-content .list-menu__item--link {
+  color: rgb(var(--color-foreground));
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
 }
 
 .footer-block__details-content .list-menu__item--active {
@@ -345,7 +322,7 @@
   color: rgb(var(--color-foreground));
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 990px) {
   .footer-block__details-content .list-menu__item--link:hover,
   .copyright__content a:hover {
     color: rgb(var(--color-foreground));
@@ -365,7 +342,7 @@
   }
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 990px) {
   .footer-block__details-content .list-menu__item--link {
     display: inline-block;
     font-size: 1.4rem;
@@ -392,7 +369,7 @@
   justify-content: flex-end;
 }
 
-@media screen and (max-width: 749px) {
+@media screen and (max-width: 989px) {
   .footer-block-image,
   .footer-block-image.left,
   .footer-block-image.center,
@@ -471,7 +448,7 @@
   display: block;
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 990px) {
   .policies li a {
     padding: 0;
   }
@@ -490,13 +467,13 @@
 
 /* check for flexbox gap in older Safari versions */
 @supports not (inset: 10px) {
-  @media screen and (max-width: 749px) {
+  @media screen and (max-width: 989px) {
     .footer .grid {
       margin-left: 0;
     }
   }
 
-  @media screen and (min-width: 750px) {
+  @media screen and (min-width: 990px) {
     .footer__content-top .grid {
       margin-left: -3rem;
     }
@@ -505,4 +482,154 @@
       padding-left: 3rem;
     }
   }
+}
+
+.footer-block__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.footer-block__summary::-webkit-details-marker {
+  display: none;
+}
+
+.footer-block__summary .footer-block__heading {
+  margin: 0;
+}
+
+.footer-block__toggle-icon .icon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.footer-block__accordion[open] .footer-block__toggle-icon--plus,
+.footer-block__accordion:not([open]) .footer-block__toggle-icon--minus {
+  display: none;
+}
+
+@media screen and (max-width: 989px) {
+  .footer-block--menu.grid__item {
+    margin: 0;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .footer-block__summary {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 989px) {
+  .footer-block__brand-info {
+    text-align: center;
+  }
+
+  .footer-block__brand-info > .footer-block__image-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer-block__brand-info .footer__list-social.list-social {
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .footer__blocks-wrapper.grid {
+    flex-wrap: nowrap;
+    column-gap: 0;
+  }
+
+  /* The row has no column gap, so each block keeps its own space on the right: inside the 17.5rem
+     menu column, and on any other block a merchant adds (text, image, app), which shrinks with the
+     menu columns instead of holding Dawn's fixed grid width. */
+  .footer__blocks-wrapper .footer-block.footer-block--menu {
+    flex: 0 1 17.5rem;
+    width: 17.5rem;
+    max-width: 17.5rem;
+    min-width: 0;
+    padding-right: 2rem;
+  }
+
+  .footer__blocks-wrapper .footer-block:not(.footer-block--menu, .footer-block--brand) {
+    flex: 1 1 17.5rem;
+    width: auto;
+    max-width: none;
+    min-width: 0;
+    padding-right: 2rem;
+  }
+
+  .footer__blocks-wrapper .footer-block.footer-block--brand {
+    flex: 0 0 auto;
+    width: auto;
+    max-width: none;
+    margin-left: auto;
+  }
+
+  .footer-block__brand-info .footer__list-social.list-social {
+    margin-left: -1.1rem;
+  }
+}
+
+.footer__currency {
+  margin: 0;
+  color: rgb(var(--color-foreground));
+}
+
+@media screen and (max-width: 989px) {
+  .footer__localization {
+    flex-direction: column;
+    align-items: center;
+    row-gap: 0.5rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .footer__content-bottom-wrapper {
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .footer__column--info {
+    width: auto;
+    align-items: flex-start;
+  }
+
+  .footer__localization {
+    width: auto;
+    flex-wrap: nowrap;
+    align-items: center;
+    column-gap: 2rem;
+  }
+}
+
+.footer__localization .localization-form {
+  margin: 0;
+  padding: 0;
+}
+
+.footer__localization .disclosure .localization-form__select {
+  height: auto;
+  min-height: initial;
+  margin: 0;
+  padding: 0.5rem 2rem 0.5rem 0;
+  background: transparent;
+}
+
+.footer__localization .localization-form__select .icon-caret {
+  right: 0;
+}
+
+.footer__localization .localization-form__select.link:after,
+.footer__localization .localization-form__select.link:before {
+  box-shadow: none;
+}
+
+.footer__localization .localization-form__select.link:focus-visible {
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+  outline-offset: 0.2rem;
 }

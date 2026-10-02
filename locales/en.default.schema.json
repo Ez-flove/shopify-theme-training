@@ -261,6 +261,10 @@
           "label": "X / Twitter",
           "info": "https://x.com/shopify"
         },
+        "social_linkedin_link": {
+          "label": "LinkedIn",
+          "info": "https://www.linkedin.com/company/shopify"
+        },
         "social_facebook_link": {
           "label": "Facebook",
           "info": "https://facebook.com/shopify"
@@ -997,7 +1001,8 @@
           "settings": {
             "heading": {
               "label": "Heading",
-              "default": "Quick links"
+              "default": "Quick links",
+              "info": "Shown on mobile only, as the title of the collapsible menu."
             },
             "menu": {
               "label": "Menu"

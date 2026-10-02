@@ -10,7 +10,7 @@
 {
   "current": {
     "logo": "shopify://shop_images/logo-blakely-black.png",
-    "logo_width": 90,
+    "logo_width": 190,
     "type_header_font": "assistant_n4",
     "heading_scale": 100,
     "type_body_font": "assistant_n4",
@@ -109,12 +109,12 @@
     "brand_headline": "",
     "brand_description": "<p></p>",
     "brand_image": "shopify://shop_images/logo-blakely-white.png",
-    "brand_image_width": 100,
-    "social_facebook_link": "",
-    "social_instagram_link": "",
-    "social_youtube_link": "",
-    "social_tiktok_link": "",
-    "social_twitter_link": "",
+    "brand_image_width": 230,
+    "social_facebook_link": "https://facebook.com/shopify",
+    "social_instagram_link": "https://instagram.com/shopify",
+    "social_youtube_link": "https://www.youtube.com/shopify",
+    "social_tiktok_link": "https://tiktok.com/@shopify",
+    "social_twitter_link": "https://x.com/shopify",
     "social_snapchat_link": "",
     "social_pinterest_link": "",
     "social_tumblr_link": "",
@@ -200,11 +200,13 @@
           "shadow": "#121212"
         }
       }
-    }
+    },
+    "social_linkedin_link": "https://www.linkedin.com/company/shopify"
   },
   "presets": {
     "Dawn": {
-      "logo_width": 90,
+      "logo": "shopify://shop_images/logo-blakely-black.png",
+      "logo_width": 190,
       "customer_account_menu": "customer-account-main-menu",
       "color_schemes": {
         "scheme-1": {
@@ -360,15 +362,16 @@
       "sold_out_badge_color_scheme": "scheme-3",
       "brand_headline": "",
       "brand_description": "<p></p>",
-      "brand_image_width": 100,
-      "social_twitter_link": "",
-      "social_facebook_link": "",
+      "brand_image": "shopify://shop_images/logo-blakely-white.png",
+      "brand_image_width": 230,
+      "social_twitter_link": "https://x.com/shopify",
+      "social_facebook_link": "https://facebook.com/shopify",
       "social_pinterest_link": "",
-      "social_instagram_link": "",
-      "social_tiktok_link": "",
+      "social_instagram_link": "https://instagram.com/shopify",
+      "social_tiktok_link": "https://tiktok.com/@shopify",
       "social_tumblr_link": "",
       "social_snapchat_link": "",
-      "social_youtube_link": "",
+      "social_youtube_link": "https://www.youtube.com/shopify",
       "social_vimeo_link": "",
       "predictive_search_enabled": true,
       "predictive_search_show_vendor": false,
@@ -392,7 +395,8 @@
             "color_scheme": "scheme-1"
           }
         }
-      }
+      },
+      "social_linkedin_link": "https://www.linkedin.com/company/shopify"
     }
   }
 }
