@@ -1,6 +1,13 @@
 {
-  "count": 2,
+  "count": 3,
   "guards": [
+    {
+      "id": "locale-parity",
+      "app": "tests",
+      "path": "tests/guards/locale-parity.test.js",
+      "watches": "a storefront string added to locales/en.default.json without its translation in locales/vi.json. Dawn turns MatchingTranslations off in .theme-check.yml, so Theme Check never reports it; the /vi storefront then shows \"Translation missing: vi.…\" where the text should be.",
+      "extend": "a new key in en.default.json needs the same key in vi.json. A pluralised string (an object of one/other …) needs at least \"other\" in vi.json, because Vietnamese has no grammatical plural. A string that stays English on purpose still goes into vi.json, with the English text."
+    },
     {
       "id": "section-blocks",
       "app": "tests",
