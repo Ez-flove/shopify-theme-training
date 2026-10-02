@@ -150,7 +150,7 @@
 >
   {%- liquid
     assign social_links = false
-    if settings.social_twitter_link != blank or settings.social_facebook_link != blank or settings.social_pinterest_link != blank or settings.social_instagram_link != blank or settings.social_youtube_link != blank or settings.social_vimeo_link != blank or settings.social_tiktok_link != blank or settings.social_tumblr_link != blank or settings.social_snapchat_link != blank
+    if settings.social_twitter_link != blank or settings.social_facebook_link != blank or settings.social_pinterest_link != blank or settings.social_instagram_link != blank or settings.social_youtube_link != blank or settings.social_vimeo_link != blank or settings.social_tiktok_link != blank or settings.social_tumblr_link != blank or settings.social_snapchat_link != blank or settings.social_linkedin_link != blank
       assign social_links = true
     endif
 
@@ -163,8 +163,13 @@
     if section.settings.enable_language_selector and localization.available_languages.size > 1
       assign language_selector = true
     endif
+
+    assign search_beside_menu = false
+    if section.settings.logo_position == 'middle-center' and section.settings.menu != blank and section.settings.menu_type_desktop != 'drawer'
+      assign search_beside_menu = true
+    endif
   -%}
-  <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if country_selector or language_selector %} header--has-localizations{% endif %}">
+  <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if country_selector or language_selector %} header--has-localizations{% endif %}{% if search_beside_menu %} header--search-beside-menu{% endif %}">
     {%- liquid
       assign render_search_left = false
       if section.settings.logo_position == 'top-center' or section.settings.menu == blank or shop.customer_accounts_enabled
@@ -213,6 +218,9 @@
       {%- endif -%}
     {%- endif -%}
 
+    {%- if search_beside_menu -%}
+      <div class="header__navigation">
+    {%- endif -%}
     {%- liquid
       if section.settings.menu != blank
         if section.settings.menu_type_desktop == 'dropdown'
@@ -222,6 +230,10 @@
         endif
       endif
     %}
+    {%- if search_beside_menu -%}
+        {% render 'header-search', input_id: 'Search-In-Modal-Menu' %}
+      </div>
+    {%- endif -%}
 
     {%- if section.settings.logo_position == 'middle-center' -%}
       {%- if request.page_type == 'index' -%}
@@ -287,8 +299,8 @@
           menu="{{ settings.customer_account_menu | default: 'customer-account-main-menu' }}"
           class="header__icon header__icon--account link focus-inset"
         >
-          <span slot="signed-out-avatar" class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
-          <span slot="signed-out-avatar" class="visually-hidden">{{ 'customer.log_in' | t }}</span>
+          <span slot="signed-out-avatar" class="svg-wrapper header__account-icon">{{ 'icon-account.svg' | inline_asset_content }}</span>
+          <span slot="signed-out-avatar" class="header__account-label">{{ 'customer.log_in' | t }}</span>
         </shopify-account>
       {%- endif -%}
 
@@ -468,6 +480,7 @@
     {% endif %}
     "sameAs": [
       {{ settings.social_twitter_link | json }},
+      {{ settings.social_linkedin_link | json }},
       {{ settings.social_facebook_link | json }},
       {{ settings.social_pinterest_link | json }},
       {{ settings.social_instagram_link | json }},

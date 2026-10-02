@@ -25,7 +25,8 @@
         "snapchat": "Snapchat",
         "youtube": "YouTube",
         "vimeo": "Vimeo",
-        "tiktok": "TikTok"
+        "tiktok": "TikTok",
+        "linkedin": "LinkedIn"
       }
     },
     "continue_shopping": "Tiếp tục mua sắm",
@@ -310,7 +311,8 @@
       "taxes_at_checkout_shipping_at_checkout_without_policy": "Thuế, ưu đãi giảm giá và phí vận chuyển được tính khi thanh toán."
     },
     "footer": {
-      "payment": "Phương thức thanh toán"
+      "payment": "Phương thức thanh toán",
+      "copyright": "Bản quyền {{ shop_name }} {{ year }} | Bảo lưu mọi quyền"
     },
     "featured_blog": {
       "view_all": "Xem tất cả",

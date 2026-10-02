@@ -135,6 +135,11 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
     padding-right: 5rem;
   }
 
+  /* The Blakely header sits narrower than the page: the design at 1218px runs from x 158 to 1039. */
+  .header--search-beside-menu.page-width {
+    max-width: 99rem;
+  }
+
   .page-width--narrow {
     max-width: 72.6rem;
     padding: 0;
@@ -2579,6 +2584,39 @@ input[type='checkbox'] {
   margin-right: -1.2rem;
 }
 
+.header__account-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media screen and (min-width: 990px) {
+  .header__icon--account {
+    width: auto;
+    padding: 0 1.2rem;
+  }
+
+  .header__icon .header__account-icon {
+    display: none;
+  }
+
+  .header__account-label {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    font-size: 1.3rem;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-underline-offset: 0.3rem;
+  }
+}
+
 .header__icon--menu[aria-expanded='true']::before {
   content: '';
   top: 100%;
@@ -2674,6 +2712,24 @@ menu-drawer + .header__search {
   .header--has-account.header--has-menu:not(.header--mobile-left):not(.header--has-app)
     .header__icons
     > .header__search {
+    display: none;
+  }
+}
+
+.header__navigation {
+  display: none;
+}
+
+@media screen and (min-width: 990px) {
+  .header__navigation {
+    grid-area: navigation;
+    justify-self: start;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .header--search-beside-menu .header__icons > .header__search {
     display: none;
   }
 }
@@ -2835,6 +2891,14 @@ details[open] > .header__submenu {
   padding: 1.2rem;
   text-decoration: none;
   color: rgba(var(--color-foreground), 0.75);
+}
+
+@media screen and (min-width: 990px) {
+  .header__inline-menu .list-menu--inline > li > .header__menu-item,
+  .header__inline-menu .list-menu--inline > li > header-menu > details > .header__menu-item {
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+  }
 }
 
 .header__menu-item:hover {

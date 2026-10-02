@@ -215,7 +215,8 @@ Khái niệm Shopify plan này dùng, mỗi cái một câu vì sao:
 | D-10 | §2.4 | "Powered by Shopify", policy | bỏ "Powered by" khỏi markup; danh sách policy giữ trong code sau `show_policy` và tắt bằng setting (merchant bật lại được) | spec §2.4 |
 | D-11 | §2.6 | Block menu có tiêu đề trống | list hiện luôn, không accordion | plan (Review Focus 4) |
 | D-12 | D-3 | Ai chọn logo | người dùng upload và chọn trong theme editor; `--theme-editor-sync` ghi tham chiếu về `settings_data.json`, Claude đọc lại trong `git diff`. Không đoán tên file | plan, sửa cách làm của D-3 cho riêng ảnh |
-| D-13 | §2.4 | Footer desktop nhiều hơn năm block | một hàng duy nhất như design (`nowrap`): cột menu co lại khi thiếu chỗ. Merchant thêm block thứ sáu trở đi thì các cột hẹp dần — giới hạn đã biết của bố cục này, ghi ở đây thay vì giữ cách chia ba cột của Dawn | plan |
+| D-13 | §2.4 | Footer desktop nhiều hơn năm block | một hàng duy nhất như design (`nowrap`): cột menu co lại khi thiếu chỗ. Mỗi block giữ `padding-right: 2rem` (cột menu: bên trong 17.5rem; block text/image/app: `flex: 1 1 17.5rem`) để chữ không dính cột bên (review cuối). Merchant thêm block thứ sáu trở đi thì các cột hẹp dần — giới hạn đã biết của bố cục này, ghi ở đây thay vì giữ cách chia ba cột của Dawn | plan |
+| D-14 | §2.2 | Bề ngang header desktop (Task 6 bước 4 dừng) | Đo ở 1218 px: header Dawn rộng 1200 px, chữ menu bắt đầu ở x 52, giỏ kết thúc ở 1144; design 158 → 1039, lệch đều ~106 px mỗi bên. **Phương án A:** chỉ header bố cục Blakely (`.header--search-beside-menu`) được `max-width: 99rem` từ 990 px. `page_width` giữ 1200, footer và các section khác không đổi. Cái giá: con số cố định, merchant đổi `page_width` thì header không đổi theo; và cột menu chỉ còn ~322 px ở mọi bề ngang desktop (Dawn 1200 px: ~427 px) — ba mục Mens/Womens/Accessories vừa một hàng, mục thứ tư xuống dòng (review cuối). Người dùng giữ 99rem sau khi được báo cái giá này. (Lúc đưa phương án mình ước lượng ~94rem; đo lại thì ra 99rem) | người dùng chọn A, 2026-10-01 |
 
 ---
 
@@ -243,12 +244,15 @@ Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 ```
 
 - [ ] **Bước 2 (người dùng):** tạo repo trống trên GitHub (khuyên private), gửi URL.
-- [ ] **Bước 3 (Claude, khi được bảo):** `git remote add origin <URL>` rồi `git push -u origin main`.
-- [ ] **Bước 4 (người dùng):** Shopify admin → Online Store → Themes → Add theme → Connect from
+- [x] **Bước 3 (Claude, khi được bảo):** `git remote add origin <URL>` rồi `git push -u origin main`.
+  Push do người dùng chạy (auto mode chặn Claude push); `git ls-remote` xác nhận `refs/heads/main` = `bbcc5ac`.
+- [x] **Bước 4 (người dùng):** Shopify admin → Online Store → Themes → Add theme → Connect from
   GitHub → cài Shopify GitHub app cho tài khoản/org → chọn repo, branch `main`. Một theme mới,
   chưa publish, xuất hiện trong danh sách.
-- [ ] **Bước 5 (người dùng + Claude):** trong editor của theme vừa nối, đổi chữ announcement rồi
-  Save; chờ ~10 giây. Kỳ vọng: GitHub có commit mới của Shopify trên `main`. Đổi lại chữ cũ.
+- [x] **Bước 5 (người dùng + Claude):** bot commit `a9d9c5e` (`templates/index.json`, tiêu đề Image
+  banner thành "Text image banner", chưa đổi lại). Trong editor của theme vừa nối, đổi tiêu đề một section của
+  trang chủ (ví dụ Image banner — file `templates/index.json`, branch EX-01 không đụng tới) rồi Save
+  (không dùng announcement: bot sẽ ghi `sections/header-group.json`, file branch EX-01 đang sửa → conflict khi mở PR); chờ ~10 giây. Kỳ vọng: GitHub có commit mới của Shopify trên `main`. Đổi lại chữ cũ.
   Claude `git fetch` và ghi hash của commit đó vào bảng trạng thái.
 - [ ] **Bước 6 (Claude, khi được bảo):** `git checkout -b ex-01-header-footer` — mọi task sau làm
   trên branch này.
@@ -1144,6 +1148,15 @@ tools/run shared-rules                     # clean
 - [ ] **Bước 8 — bàn giao cho trainer (OQ-7), khi người dùng bảo:** commit trên
   `ex-01-header-footer`, push, mở PR vào `main`, merge. Theme nối GitHub (Task 1 bước 4) tự cập
   nhật; mở theme đó bằng link preview (chưa publish), kiểm lại 1440 và 375 px, gửi link cho trainer.
+  **`config/settings_data.json` khi gộp với `main`:** bot commit `66484bf` đổi `"current": "Dawn"` thành
+  object, và khi `current` là object thì Shopify bỏ qua `presets.Dawn`. Nếu branch vẫn giữ `"current": "Dawn"`,
+  git gộp **không conflict** và lặng lẽ mất logo 190, brand 230, sáu social link (review cuối, đo bằng
+  `git merge-file`). Vì vậy file của branch được dựng theo dạng của `main`: object `current` của bot cộng
+  các giá trị của branch. Gộp giờ dừng ở 3 conflict; chọn bản của branch (`git checkout --ours
+  config/settings_data.json` khi merge `main` vào branch) là đúng, vì nó đã chứa mọi giá trị của bot. Sau
+  merge, mở theme GitHub: logo header rộng 190, footer có sáu icon social. Nếu `main` có commit mới của
+  bot vào file này trước lúc gộp, lấy bản mới của bot rồi áp lại mười giá trị trong `presets.Dawn` của
+  branch vào `current`.
 
 ## Task 12 — denv (người dùng, spec §5)
 
@@ -1169,15 +1182,15 @@ là của người dùng.
 
 | # | Việc | Trạng thái | Bằng chứng |
 |---|---|---|---|
-| 1 | GitHub: commit nền, repo, nối branch | đã lên plan | |
-| 2 | Việc trong admin | đã lên plan | |
-| 3 | Ảnh "trước" | đã lên plan | |
-| 4 | Setting bằng JSON | đã lên plan | |
-| 5 | LinkedIn + guard `social-links` | đã lên plan | |
-| 6 | Search cạnh menu | đã lên plan | |
-| 7 | "LOG IN" chữ, menu in hoa | đã lên plan | |
-| 8 | Footer mốc 990 + accordion | đã lên plan | |
-| 9 | Footer năm cột, link, brand | đã lên plan | |
-| 10 | Footer hàng dưới | đã lên plan | |
-| 11 | Kiểm toàn bộ | đã lên plan | |
-| 12 | denv | đã lên plan | |
+| 1 | GitHub: commit nền, repo, nối branch | đã làm một phần | commit nền `bbcc5ac` trên `main` (399 file); branch `ex-01-header-footer`; remote `origin` đã thêm; `main` đã push (`bbcc5ac`); đã nối GitHub; bot commit `a9d9c5e` (`templates/index.json`) và `66484bf` (`settings_data.json`: logo upload trong editor theme GitHub → `current` thành object, xem Task 11 bước 8) |
+| 2 | Việc trong admin | xong, trừ kiểm "&" và đăng nhập | đọc từ storefront dev: bốn menu footer đúng tên, handle khớp; Shop/Company/Important đúng mục, **Info thừa** "Terms & Conditions", "Site Map" (design 6 mục); **Main menu còn "Home"** (design chỉ Mens, Womens); link đăng nhập "Log in" hiện; ngôn ngữ English + Tiếng việt; country list chỉ Canada, United States — **market Vietnam chưa có condition** nên chưa hiện; logo + brand image hiện (190/230); sáu icon thanh toán có sẵn — OQ-6 không cần làm gì thêm. Lần 2: Main menu chỉ còn Mens, Womens; Info đủ 6 mục; country list Canada, United States, **Vietnam VND ₫** |
+| 3 | Ảnh "trước" | đã làm một phần | `evidence/before-page-text.md`, `evidence/before-1920.png`. Lỗi có sẵn khi tải trang: 400 Storefront API + "menu customer-account-main-menu not found" (của `<shopify-account>`), `shop.app` bị chặn trên localhost. Ảnh hẹp (375/750/990) chờ: MCP không đổi được viewport, storefront cấm iframe, popup bị chặn |
+| 4 | Setting bằng JSON | đã làm, chờ admin | `header-group.json`, `footer-group.json` (handle dự kiến `shop`/`company`/`info`/`important`), `settings_data.json` (`presets.Dawn`: logo 190, brand 230, sáu social link). JSON hợp lệ. Logo chờ người dùng upload |
+| 5 | LinkedIn + guard `social-links` | đã làm, chờ editor | guard `social-links`: xanh trên Dawn 2/2 → đỏ khi thêm setting (6 file "0×") → xanh 2/2; mutation JSON-LD và `social-icons` đều đỏ "1× vs 2×"; change-guards 2 guard, clean. Trình duyệt 1920: 6 icon đúng thứ tự, LinkedIn cùng cỡ (`evidence/task5-footer-socials-1920.png`). Xoá LinkedIn (tạm, qua `settings_data.json`, đã trả lại): còn năm icon, cách đều 42 px, không lỗ |
+| 6 | Search cạnh menu | đã làm, chờ menu dài (bước 6) | 1920 px: class `header--search-beside-menu`, chỉ `Search-In-Modal-Menu` hiện, nằm sau menu; tâm logo 953 = tâm header; bấm search → hộp mở, input focus (`evidence/task6-*.png`). 375/750/989 px: bố cục mobile, đúng một search. Bước 4 dừng ở bề ngang (trước: menu x 52, giỏ 1144 ở 1218 px — `evidence/compare-header-1218.png`) → D-14, `max-width: 99rem`; sau: menu 157, giỏ 1039, design 158/1039, tâm logo 601.5 = tâm trang (`evidence/task6-header-width-1218.png`); 989 px giữ 1200, 990 px header full 975, 1440 px 218→1208, 1920 px 458→1448, không cuộn ngang. Theme Check 0 lỗi/9 cảnh báo, guard 6/6, change-guards clean. Bước 6 (tạm đặt menu `shop` qua `header-group.json`, đã trả lại): 990 px năm mục xuống hai dòng trong cột trái, mép phải menu 303 / search 321–365 / logo bắt đầu 385 — không đè (`evidence/task6-long-menu-990.png`) |
+| 7 | "LOG IN" chữ, menu in hoa | đã làm, chờ kiểm mobile | "LOG IN" in hoa, gạch chân, cách giỏ 12 px (design 11 px); menu in hoa; bấm → hộp "Sign in or create account" của Shopify (`evidence/task7-login-open-1920.png`). Slot nhận chữ — rủi ro bước 5 không xảy ra. Ruling: specificity icon (ledger) |
+| 8 | Footer mốc 990 + accordion | đã kiểm | mốc footer 749/750 → 989/990 (23 chỗ); accordion `<details open>` + `footer-accordion.js`; js-syntax 37 clean; guard 6/6. 375 + 750 px: bốn dòng đóng khi tải, dấu +; bấm → mở, dấu −, Shop năm link; mở hai dòng cùng lúc được; bấm lại → đóng; summary focus được (Enter/Space là hành vi gốc của `<summary>`, không giả lập được bằng sự kiện tổng hợp). Kéo 750 → 1440: bốn list mở, tiêu đề ẩn; về 375: bốn dòng đóng. Render lại section qua Section Rendering API (thay DOM như editor): bốn dòng đóng, bấm mở được, không lỗi. Info tiêu đề trống (tạm, đã trả lại): không accordion, list hiện luôn, không dòng rỗng (`evidence/task8-*.png`). Editor (bước 7): người dùng tự kiểm trong editor và báo đạt, 2026-10-01 |
+| 9 | Footer năm cột, link, brand | đã kiểm | class `footer-block--brand`, link trắng gạch chân, năm cột một hàng; bỏ đường kẻ trên hàng dưới (design không có — ruling). 1440/1439/990 px: năm block một hàng, cột cách 175 px; icon social đầu thẳng mép trái logo (1022/1022); link trắng gạch chân offset 3 px; 990 px "Student Ambassadors" một dòng trong cột 158 px; 375 px logo + social căn giữa (180/180). So design 1439: cột chữ 162/337/512/687 so với 185/360/536/711 (lệch trái 23 px), logo 1021 so với 1013 (`evidence/task9-footer-compare-1439.png`). Editor (bước 6, tô viền block Company): người dùng tự kiểm và báo đạt, 2026-10-01 |
+| 10 | Footer hàng dưới | đã kiểm, chờ escape | 1920 px: "Copyright ngocmx-training 2026 \| All rights reserved" + 6 icon bên trái; "$ USD" + "United States ⌄" không khung, không nhãn, thẳng hàng (tâm 2070/2070); không còn "Powered by" (`evidence/task10-footer-1920.png`). Ruling: bỏ khung nút + margin thừa (ledger). 375 px: copyright → payment → "$ USD" → "United States" → "English", căn giữa (180). `/vi`: lang vi, "Bản quyền ngocmx-training 2026 \| Bảo lưu mọi quyền", 0 `Translation missing`, nhãn LinkedIn "LinkedIn", "Đăng nhập"; drawer 375 px nút country "Hoa Kỳ \| USD $" — vẫn có tiền tệ (`evidence/task10-vi-drawer-375.png`). `?country=VN` (form `/localization` qua proxy `theme dev` trả 401 nên đổi bằng tham số URL): 1440 px phải "₫ VND" · "Vietnam ⌄" · "English ⌄" cùng hàng (tâm y 807), nhãn h2 ẩn, không "Powered by"; 375 px copyright → payment → "₫ VND" → "Vietnam" → "English", căn giữa 180; giá sản phẩm thành VND; US → "$ USD". Drawer 375 px: "Vietnam \| VND ₫". Sửa thêm: "₫ VND" từ trắng 75% thành trắng như ô country (ruling, ledger) (`evidence/task10-footer-vn-*.png`) |
+| 11 | Kiểm toàn bộ | đã kiểm, chờ đăng nhập + giỏ | Bước 2: 1440/1439/1218/990/750/414/375/332 — không cuộn ngang, không phần tử header/footer nào chồng nhau, đúng một search hiện. Bước 3: `/`, `/vi`, `/collections/all`, `/products/gift-card`, `/vi/products/gift-card` → 200, 0 `Liquid error`, 0 `Translation missing`; console chỉ lỗi có sẵn (Storefront API 400, `customer-account-main-menu`, CSP `shop.app`). Bước 6: theme check exit 0 (9 warning), js-syntax 37 clean, guard 6/6, change-guards clean, shared-rules clean. Bước 1 chờ: development theme đang có sửa trong editor (header bật country/language, banner "Update from local theme") khác repo. Bước 4: giỏ có hàng chưa kiểm được — 13 sản phẩm đều hết hàng. Bước 4: tắt đăng nhập và chỉ một ngôn ngữ — người dùng bỏ qua → `DEFERRED` trong `docs/tech-debt.md`. Đăng nhập trên `127.0.0.1:9292` lỗi: CSP `frame-ancestors` của `shop.app` chỉ cho domain myshopify — kiểm trạng thái đã đăng nhập trên `https://ngocmx-training.myshopify.com/?preview_theme_id=187484766378`. Bước 4 (tạm sửa JSON, đã trả lại, cmp giống bản sao): bỏ logo → header hiện "ngocmx-training", tâm 713 / tâm trang 712.5 ở 1440, 176/180 ở 375 (lưới mobile của Dawn); block Info không gán menu → block rỗng không chiếm chỗ: desktop Important dồn vào chỗ Info (513), mobile không có dòng Info, khoảng giữa các dòng 0. Dev theme bị ghi đè lại sau khi đã đưa về repo (header bật country/language, banner "Update from local theme") — nghi một tab editor cũ của development theme Save lại; chờ người dùng. Bước 1 (2026-10-02, sau khi `theme dev` chạy lại và dev theme khớp repo): `evidence/after-{1440,1439,1218,990,750,414,375,332}.png`, `?country=VN`; header mobile 414 khớp `header-mobile.png`. Sau review: footer có thêm block text tạm ở 990 px — sáu block một hàng, cột 127 px, chữ cách cột bên ≥ 28 px (`evidence/final-footer-text-block-990.png`); bố cục design ở 990 px: một hàng, cách ≥ 21 px, "Student Ambassadors" một dòng. Preview dev theme chạy trên `ngocmx-training.myshopify.com/?preview_theme_id=187484766378` — đăng nhập kiểm ở đó |
+| 12 | denv | chờ người dùng |  |

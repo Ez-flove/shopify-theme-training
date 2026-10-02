@@ -3,6 +3,7 @@
 
   Accepts:
     - localPosition: pass in the position in which the form is coming up to create specific IDs
+    - hide_currency: {Boolean} leave the currency out of the button label (optional)
 {%- endcomment -%}
 
 {%- liquid
@@ -34,9 +35,11 @@
     aria-describedby="{{ localPosition }}Label"
   >
     <span>
-      {{- localization.country.name }} |
-      {{ localization.country.currency.iso_code }}
-      {{ localization.country.currency.symbol -}}
+      {{- localization.country.name -}}
+      {%- unless hide_currency %} |
+        {{ localization.country.currency.iso_code }}
+        {{ localization.country.currency.symbol -}}
+      {%- endunless -%}
     </span>
     {{ 'icon-caret.svg' | inline_asset_content }}
   </button>

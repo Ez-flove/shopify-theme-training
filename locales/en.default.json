@@ -25,7 +25,8 @@
         "snapchat": "Snapchat",
         "youtube": "YouTube",
         "vimeo": "Vimeo",
-        "tiktok": "TikTok"
+        "tiktok": "TikTok",
+        "linkedin": "LinkedIn"
       }
     },
     "continue_shopping": "Continue shopping",
@@ -318,7 +319,8 @@
       }
     },
     "footer": {
-      "payment": "Payment methods"
+      "payment": "Payment methods",
+      "copyright": "Copyright {{ shop_name }} {{ year }} | All rights reserved"
     },
     "featured_blog": {
       "view_all": "View all",
