@@ -378,6 +378,20 @@
       "min_error": "This item has a minimum of {{ min }}",
       "max_error": "This item has a maximum of {{ max }}",
       "step_error": "You can only add this item in increments of {{ step }}"
+    },
+    "product_recommendations_tabs": {
+      "tabs_label": "Product lists",
+      "related_label": "Related products",
+      "recently_viewed_label": "Recently viewed",
+      "related_empty": "No related products to show yet.",
+      "recently_viewed_empty": "Products you view will show up here.",
+      "error": "Products couldn't be loaded. Select the button again to retry.",
+      "noscript": "Turn on JavaScript to see these products.",
+      "add_block": "Add a Related products or Recently viewed block to show this section.",
+      "products_count": {
+        "one": "{{ count }} product",
+        "other": "{{ count }} products"
+      }
     }
   },
   "localization": {

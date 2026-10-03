@@ -377,6 +377,19 @@
       "min_error": "Mặt hàng này có tối thiểu {{ min }}",
       "max_error": "Mặt hàng này có tối đa {{ max }}",
       "step_error": "Bạn chỉ có thể thêm mặt hàng này theo đơn vị giao dịch {{ step }}"
+    },
+    "product_recommendations_tabs": {
+      "tabs_label": "Danh sách sản phẩm",
+      "related_label": "Sản phẩm liên quan",
+      "recently_viewed_label": "Sản phẩm đã xem",
+      "related_empty": "Chưa có sản phẩm liên quan.",
+      "recently_viewed_empty": "Các sản phẩm bạn đã xem sẽ hiện ở đây.",
+      "error": "Không tải được sản phẩm. Bấm lại nút để thử lại.",
+      "noscript": "Bật JavaScript để xem các sản phẩm này.",
+      "add_block": "Thêm block Sản phẩm liên quan hoặc Sản phẩm đã xem để hiện section này.",
+      "products_count": {
+        "other": "{{ count }} sản phẩm"
+      }
     }
   },
   "localization": {

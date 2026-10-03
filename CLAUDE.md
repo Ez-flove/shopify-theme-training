@@ -52,7 +52,7 @@ shopify theme check --fail-level error     # lint. Dawn v16 baseline: 0 errors, 
                                            # inspected" also counts JSON outside the theme folders
                                            # (flow.config.json, docs/), so it is not a baseline
 tools/run js-syntax                        # node --check over assets/*.js
-node --test 'tests/guards/*.test.js'       # the guards
+node --test 'tests/guards/*.test.js' 'tests/unit/*.test.js'   # guards + unit tests of assets/*.js
 tools/run change-guards [--check]          # regenerate / check docs/architecture/change-guards.json
 tools/run shared-rules                     # a rule written in two files that no longer agree
 tools/run mutate <file> --sub 'OLD=>NEW' -- node --test tests/guards/<guard>.test.js

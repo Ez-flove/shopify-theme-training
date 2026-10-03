@@ -1,0 +1,117 @@
+/* A custom element is inline by default, which would ignore the max-width of .page-width. */
+product-recommendations-tabs {
+  display: block;
+}
+
+.product-recommendations-tabs__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-bottom: 2rem;
+}
+
+.product-recommendations-tabs__panel[aria-busy='true'] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.product-recommendations-tabs__message {
+  margin: 0;
+  padding: 2rem 0;
+}
+
+.product-recommendations-tabs__heading {
+  margin: 0 0 1rem;
+}
+
+.product-recommendations-tabs__description {
+  margin-bottom: 2rem;
+}
+
+.product-recommendations-tabs__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.product-recommendations-tabs__tab {
+  padding: 0.4rem 0.8rem;
+  border: 0.1rem solid rgba(var(--color-foreground), 0.2);
+  background: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+  font: inherit;
+  font-size: 1.3rem;
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.product-recommendations-tabs__tab[aria-selected='true'] {
+  border-color: rgb(var(--color-foreground));
+  background: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+}
+
+.product-recommendations-tabs__tab:focus-visible {
+  outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
+  outline-offset: 0.3rem;
+}
+
+.product-recommendations-tabs__link {
+  font-weight: 600;
+  text-underline-offset: 0.3rem;
+}
+
+/* Dawn's sliders bleed to the window edge and push the first card in to line up with .page-width
+   (component-slider.css, base.css). This one sits inside .page-width already, so the first card
+   starts at the content edge and, on desktop, exactly the chosen number of columns fills the width. */
+.product-recommendations-tabs slider-component {
+  --desktop-margin-left-first-item: 0rem;
+}
+
+@media screen and (max-width: 989px) {
+  .product-recommendations-tabs .grid--peek.slider .grid__item:first-of-type {
+    margin-left: 0;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  /* SliderComponent (global.js) counts slides per page as floor(slider width / (card + gap)). Cards
+     that fill the row exactly make that one short, so the slider runs a gap (plus 0.4rem for pixel
+     rounding) past the content edge, the overflow is clipped, and cards are sized on what is left. */
+  .product-recommendations-tabs slider-component {
+    --product-recommendations-tabs-overhang: calc(var(--grid-desktop-horizontal-spacing) + 0.4rem);
+    overflow-x: clip;
+  }
+
+  .product-recommendations-tabs .slider--desktop {
+    margin-right: calc(-1 * var(--product-recommendations-tabs-overhang));
+  }
+
+  /* Space after the last card, so the last page stops with that card at the content edge. */
+  .product-recommendations-tabs .slider--desktop:after {
+    padding-left: var(--product-recommendations-tabs-overhang);
+  }
+
+  .product-recommendations-tabs .slider--desktop.grid--2-col-desktop .grid__item {
+    width: calc((100% - var(--grid-desktop-horizontal-spacing) * 2 - 0.4rem) / 2);
+  }
+
+  .product-recommendations-tabs .slider--desktop.grid--3-col-desktop .grid__item {
+    width: calc((100% - var(--grid-desktop-horizontal-spacing) * 3 - 0.4rem) / 3);
+  }
+
+  .product-recommendations-tabs .slider--desktop.grid--4-col-desktop .grid__item {
+    width: calc((100% - var(--grid-desktop-horizontal-spacing) * 4 - 0.4rem) / 4);
+  }
+
+  .product-recommendations-tabs .slider--desktop.grid--5-col-desktop .grid__item {
+    width: calc((100% - var(--grid-desktop-horizontal-spacing) * 5 - 0.4rem) / 5);
+  }
+
+  .product-recommendations-tabs .slider--desktop.grid--6-col-desktop .grid__item {
+    width: calc((100% - var(--grid-desktop-horizontal-spacing) * 6 - 0.4rem) / 6);
+  }
+}
